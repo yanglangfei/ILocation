@@ -16,7 +16,6 @@ import com.yf.ilocation.receiver.WatchService;
  */
 
 public class A extends Service {
-
     @Override
     public void onCreate() {
         IntentFilter filter=new IntentFilter("com.yf.watch");
@@ -48,7 +47,6 @@ public class A extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i("111","A start command...");
         return START_REDELIVER_INTENT;
-
     }
 
     @Override

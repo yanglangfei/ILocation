@@ -31,6 +31,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- SD卡读取权限，用户写入离线定位数据-->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
 
 
     <application
@@ -49,6 +50,7 @@
         <activity android:name=".activity.Main"></activity>
         <activity android:name=".activity.MyRoound"></activity>
         <activity android:name=".activity.MyTaiJi"></activity>
+        <activity android:name=".activity.MyMain"></activity>
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
@@ -63,26 +65,26 @@
             android:process=":remote"></service>
 
 
-
-
         <service android:name=".service.A"
             android:description="@string/serviceA"
             android:process="com.yf.a">
 
         </service>
 
-        <service android:name=".service.B" android:process="com.yf.B"
+        <service android:name=".service.B"
+            android:process="com.yf.B"
             android:description="@string/serviceB">
-
         </service>
 
         <receiver android:name=".receiver.WatchService">
             <intent-filter>
                 <action android:name="com.yf.watch"></action>
+                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+                <action android:name="android.intent.action.ACTION_SHUTDOWN"></action>
+                <action android:name="android.intent.action.PACKAGE_INSTALL"></action>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"></action>
             </intent-filter>
         </receiver>
-
-
     </application>
 
 </manifest>
