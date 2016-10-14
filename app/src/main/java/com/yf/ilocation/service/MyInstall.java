@@ -23,6 +23,17 @@ public class MyInstall extends AccessibilityService {
     private void checkInstall(AccessibilityEvent accessibilityEvent) {
         AccessibilityNodeInfo sort = accessibilityEvent.getSource();
         CharSequence pm = accessibilityEvent.getPackageName();
+        switch (accessibilityEvent.getEventType()){
+            case  AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED:
+                AccessibilityNodeInfo text=accessibilityEvent.getSource();
+                CharSequence str = text.getText();
+                Log.i("111","str:"+str);
+                break;
+            case  AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
+                break;
+        }
+
+
         Log.i("111","pm:"+pm);
         if(sort!=null){
             boolean isInstall=accessibilityEvent.getPackageName().equals("com.android.packageinstaller");
@@ -32,6 +43,7 @@ public class MyInstall extends AccessibilityService {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void installApk(AccessibilityEvent accessibilityEvent) {
         AccessibilityNodeInfo root = getRootInActiveWindow();
         List<AccessibilityNodeInfo> nexts = root.findAccessibilityNodeInfosByText("下一步");

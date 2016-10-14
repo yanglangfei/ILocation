@@ -35,6 +35,8 @@
 
     <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE"></uses-permission>
 
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"></uses-permission>
+
 
     <application
         android:name=".aplication.MyApplication"
