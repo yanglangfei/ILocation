@@ -1,6 +1,8 @@
 package com.yf.ilocation.activity;
 
 import android.app.Activity;
+import android.database.DatabaseErrorHandler;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import com.baidu.location.BDLocation;
@@ -18,6 +20,8 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.yf.ilocation.R;
+
+import java.io.File;
 
 /**
  * Created by Administrator on 2016/10/10.
@@ -71,6 +75,16 @@ public class Main extends Activity {
     protected void onResume() {
         super.onResume();
         mapView.onResume();
+    }
+
+    @Override
+    public File getDatabasePath(String name) {
+        return super.getDatabasePath(name);
+    }
+
+    @Override
+    public SQLiteDatabase openOrCreateDatabase(String name, int mode, SQLiteDatabase.CursorFactory factory, DatabaseErrorHandler errorHandler) {
+        return super.openOrCreateDatabase(name, mode, factory, errorHandler);
     }
 
     private void initView() {

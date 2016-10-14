@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.util.DiffUtil;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,27 @@ public class F2_2 extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        DiffUtil.DiffResult result=DiffUtil.calculateDiff(new DiffUtil.Callback() {
+            @Override
+            public int getOldListSize() {
+                return 0;
+            }
+
+            @Override
+            public int getNewListSize() {
+                return 0;
+            }
+
+            @Override
+            public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+                return false;
+            }
+
+            @Override
+            public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+                return false;
+            }
+        }, true);
         Toast.makeText(getActivity(), "可见", Toast.LENGTH_SHORT).show();
     }
 
