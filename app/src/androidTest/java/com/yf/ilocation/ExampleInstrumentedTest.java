@@ -3,6 +3,10 @@ package com.yf.ilocation;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.yf.ilocation.utils.StringUtils;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +25,10 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.yf.ilocation", appContext.getPackageName());
+        String time = StringUtils.getString("当前时间");
+        System.out.print(time);
+       // assertEquals("com.yf.ilocation", appContext.getPackageName());
     }
+
+
 }

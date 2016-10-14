@@ -12,6 +12,8 @@ import com.yf.ilocation.activity.MyMain;
 import com.yf.ilocation.activity.MyRoound;
 import com.yf.ilocation.activity.MyTaiJi;
 import com.yf.ilocation.receiver.WatchService;
+import com.yf.ilocation.service.A;
+import com.yf.ilocation.service.B;
 
 public class MainActivity extends Activity {
 
@@ -23,6 +25,12 @@ public class MainActivity extends Activity {
         IntentFilter filter=new IntentFilter(Intent.ACTION_BOOT_COMPLETED);
         WatchService service=new WatchService();
         registerReceiver(service,filter);
+
+        Intent a=new Intent(MainActivity.this,A.class);
+        startService(a);
+
+        Intent b=new Intent(MainActivity.this,B.class);
+        startService(b);
     }
 
     private void initView() {

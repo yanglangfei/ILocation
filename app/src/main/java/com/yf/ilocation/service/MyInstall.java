@@ -10,6 +10,8 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2016/10/14.
+ *
+ * 自动安装
  */
 
 public class MyInstall extends AccessibilityService {
@@ -30,7 +32,6 @@ public class MyInstall extends AccessibilityService {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void installApk(AccessibilityEvent accessibilityEvent) {
         AccessibilityNodeInfo root = getRootInActiveWindow();
         List<AccessibilityNodeInfo> nexts = root.findAccessibilityNodeInfosByText("下一步");
@@ -39,7 +40,7 @@ public class MyInstall extends AccessibilityService {
         click(installs);
         List<AccessibilityNodeInfo> opens = root.findAccessibilityNodeInfosByText("打开");
         click(opens);
-        runInBackGround(accessibilityEvent);
+        //runInBackGround(accessibilityEvent);
     }
 
     private void runInBackGround(AccessibilityEvent accessibilityEvent) {

@@ -23,12 +23,6 @@ public class MyTaiJi extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taiji);
         taiJi= (TaiJi) findViewById(R.id.taiJi);
-        Intent a=new Intent(MyTaiJi.this,A.class);
-        startService(a);
-
-        Intent b=new Intent(MyTaiJi.this,B.class);
-        startService(b);
-
 
         final Handler handler = new Handler() {
             private float degrees = 0;

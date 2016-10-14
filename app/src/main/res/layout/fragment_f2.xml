@@ -39,4 +39,18 @@
         android:layout_height="200dp"></LinearLayout>
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="hello"
+        android:textSize="21sp"
+        android:layout_gravity="center"/>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        tools:src="@drawable/now"/>
+
+
 </LinearLayout>
