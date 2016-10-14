@@ -5,9 +5,7 @@ import android.os.Build;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-
 import java.util.List;
-
 /**
  * Created by Administrator on 2016/10/14.
  *
@@ -26,8 +24,10 @@ public class MyInstall extends AccessibilityService {
         switch (accessibilityEvent.getEventType()){
             case  AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED:
                 AccessibilityNodeInfo text=accessibilityEvent.getSource();
-                CharSequence str = text.getText();
-                Log.i("111","str:"+str);
+                if(text!=null){
+                    CharSequence str = text.getText();
+                    Log.i("111","str:"+str);
+                }
                 break;
             case  AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
                 break;
