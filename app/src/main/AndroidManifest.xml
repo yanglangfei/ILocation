@@ -45,16 +45,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Light.NoTitleBar">
-        <activity android:name=".MainActivity">
+        <activity android:name=".WelcomActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.Main"></activity>
-        <activity android:name=".activity.MyRoound"></activity>
         <activity android:name=".activity.MyTaiJi"></activity>
-        <activity android:name=".activity.MyMain"></activity>
+        <activity android:name=".activity.MainActivity"></activity>
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"

@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ILocation.iml" filepath="$PROJECT_DIR$/ILocation.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/icamera/icamera.iml" filepath="$PROJECT_DIR$/icamera/icamera.iml" />
     </modules>
   </component>
 </project>

@@ -3,19 +3,19 @@ package com.yf.ilocation;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
 
-import com.yf.ilocation.activity.Main;
-import com.yf.ilocation.activity.MyMain;
-import com.yf.ilocation.activity.MyRoound;
-import com.yf.ilocation.activity.MyTaiJi;
+import com.yf.ilocation.activity.MainActivity;
 import com.yf.ilocation.receiver.WatchService;
 import com.yf.ilocation.service.A;
 import com.yf.ilocation.service.B;
 
-public class MainActivity extends Activity {
+/**
+ * Created by Administrator on 2016/10/17.
+ */
+
+public class WelcomActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +26,10 @@ public class MainActivity extends Activity {
         WatchService service=new WatchService();
         registerReceiver(service,filter);
 
-        Intent a=new Intent(MainActivity.this,A.class);
+        Intent a=new Intent(WelcomActivity.this,A.class);
         startService(a);
 
-        Intent b=new Intent(MainActivity.this,B.class);
+        Intent b=new Intent(WelcomActivity.this,B.class);
         startService(b);
     }
 
@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-             startActivity(new Intent(MainActivity.this, MyMain.class));
+                startActivity(new Intent(WelcomActivity.this, MainActivity.class));
             }
         },2000);
     }

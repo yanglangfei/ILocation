@@ -1,10 +1,18 @@
-package com.yf.ilocation.activity;
-
-import android.app.Activity;
-import android.database.DatabaseErrorHandler;
-import android.database.sqlite.SQLiteDatabase;
+package com.yf.ilocation.fragment;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -20,31 +28,25 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.yf.ilocation.R;
-
-import java.io.File;
-
 /**
- * Created by Administrator on 2016/10/10.
+ * Created by Administrator on 2016/10/13.
  */
 
-public class Main extends Activity {
+public class MyLocation extends Fragment {
+    private View view;
     private MapView mapView;
     private BaiduMap map;
-    private LocationClient client;
+    private SharedPreferences sp;
     private BDLocationListener listener=new BDLocationListener() {
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
             int type = bdLocation.getLocType();
             if (type == BDLocation.TypeNetWorkLocation) {
-                String pro = bdLocation.getProvince();
-                String city = bdLocation.getCity();
-                String adree = bdLocation.getAddrStr();
-                float direct = bdLocation.getDirection();
-                String dis = bdLocation.getDistrict();
-                String floor = bdLocation.getFloor();
-                Log.i("111", "loc:" + pro + "   " + city + "  " + adree + "   " + direct + "   " + dis + "   " + floor);
                 double lat = bdLocation.getLatitude();
                 double lon = bdLocation.getLongitude();
+                edit.putString("lat",lat+"");
+                edit.putString("lon",lon+"");
+                edit.commit();
                 LatLng latLng = new LatLng(lat, lon);
                 MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(latLng);
                 map.animateMapStatus(update);
@@ -62,37 +64,26 @@ public class Main extends Activity {
             }
         }
     };
+    private LocationClient client;
+    private SharedPreferences.Editor edit;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        SDKInitializer.initialize(getApplicationContext());
-        setContentView(R.layout.ui_location);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        SDKInitializer.initialize(getActivity().getApplicationContext());
+        view=inflater.inflate(R.layout.ui_location,null);
         initView();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mapView.onResume();
-    }
-
-    @Override
-    public File getDatabasePath(String name) {
-        return super.getDatabasePath(name);
-    }
-
-    @Override
-    public SQLiteDatabase openOrCreateDatabase(String name, int mode, SQLiteDatabase.CursorFactory factory, DatabaseErrorHandler errorHandler) {
-        return super.openOrCreateDatabase(name, mode, factory, errorHandler);
+        return view;
     }
 
     private void initView() {
-        mapView= (MapView) findViewById(R.id.mapView);
+        mapView= (MapView) view.findViewById(R.id.mapView);
+        sp=getActivity().getSharedPreferences("locationInfo", Context.MODE_PRIVATE);
+        edit=sp.edit();
         map=mapView.getMap();
         map.setTrafficEnabled(true);
         map.showMapPoi(true);
-        client=new LocationClient(getApplicationContext());
+        client=new LocationClient(getActivity().getApplicationContext());
         initLocation();
         client.registerLocationListener(listener);
     }
@@ -116,14 +107,21 @@ public class Main extends Activity {
         client.start();
     }
 
+
     @Override
-    protected void onPause() {
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
         super.onPause();
         mapView.onPause();
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         mapView.onDestroy();
     }
