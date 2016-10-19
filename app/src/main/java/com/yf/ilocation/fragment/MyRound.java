@@ -1,5 +1,6 @@
 package com.yf.ilocation.fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,6 +27,7 @@ import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
 import com.yf.ilocation.R;
+import com.yf.ilocation.activity.SearchDetail;
 import com.yf.ilocation.adapter.PAdapter;
 import com.yf.ilocation.model.Place;
 import com.yf.ilocation.utils.StringUtils;
@@ -72,6 +74,17 @@ public class MyRound extends Fragment implements View.OnClickListener, OnGetPoiS
         et_keyword= (EditText) view.findViewById(R.id.et_keyword);
         search.setOnGetPoiSearchResultListener(this);
         btn_search.setOnClickListener(this);
+        adapter.setOnItemClickListener(new PAdapter.onItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent=new Intent(getActivity(), SearchDetail.class);
+                intent.putExtra("tolat",places.get(position).getLocation().latitude);
+                intent.putExtra("tolon",places.get(position).getLocation().longitude);
+                intent.putExtra("fromlat",latD);
+                intent.putExtra("fromlon",lonD);
+                getActivity().startActivity(intent);
+            }
+        });
     }
 
 
@@ -81,6 +94,10 @@ public class MyRound extends Fragment implements View.OnClickListener, OnGetPoiS
         String text=et_keyword.getText().toString();
         if(text.length()<=0){
             Toast.makeText(getActivity(), "请输入关键词", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(latD==0.0||lonD==0.0){
+            Toast.makeText(getActivity(), "无法获取当前位置", Toast.LENGTH_SHORT).show();
             return;
         }
         LatLng latObj=new LatLng(latD,lonD);

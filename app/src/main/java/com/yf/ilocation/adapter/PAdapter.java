@@ -22,6 +22,11 @@ public class PAdapter extends RecyclerView.Adapter<PAdapter.MyHolder> {
 
     private final List<Place> places;
     private final Context context;
+    private  static onItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(PAdapter.onItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
 
     public PAdapter(List<Place> places, Context context) {
         this.places=places;
@@ -39,6 +44,15 @@ public class PAdapter extends RecyclerView.Adapter<PAdapter.MyHolder> {
     @Override
     public void onBindViewHolder(MyHolder holder, int position) {
         View view=holder.itemView;
+        view.setTag(position);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(com.yf.ilocation.adapter.PAdapter.onItemClickListener!=null){
+                    com.yf.ilocation.adapter.PAdapter.onItemClickListener.onItemClick(view, (Integer) view.getTag());
+                }
+            }
+        });
         TextView name= (TextView) view.findViewById(R.id.tv_name);
         TextView address= (TextView) view.findViewById(R.id.tv_address);
         TextView phone= (TextView) view.findViewById(R.id.tv_phone);
@@ -61,5 +75,9 @@ public class PAdapter extends RecyclerView.Adapter<PAdapter.MyHolder> {
             super(itemView);
             this.itemView=itemView;
         }
+    }
+
+    public  interface  onItemClickListener{
+        void onItemClick(View view,int position);
     }
 }

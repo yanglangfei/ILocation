@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -41,7 +42,7 @@ public class MyLocation extends Fragment {
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
             int type = bdLocation.getLocType();
-            if (type == BDLocation.TypeNetWorkLocation) {
+            if (type == BDLocation.TypeGpsLocation||type==BDLocation.TypeNetWorkLocation||type==BDLocation.TypeOffLineLocation) {
                 double lat = bdLocation.getLatitude();
                 double lon = bdLocation.getLongitude();
                 edit.putString("lat",lat+"");
@@ -60,7 +61,12 @@ public class MyLocation extends Fragment {
                         .icon(bitmap);
                 //在地图上添加Marker，并显示
                 map.addOverlay(option);
-
+            }else  if(type==BDLocation.TypeServerError){
+                Toast.makeText(getContext(), "服务端网络定位失败", Toast.LENGTH_SHORT).show();
+            }else  if(type==BDLocation.TypeNetWorkException){
+                Toast.makeText(getActivity(), "请检查网络是否通畅", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(getActivity(), "定位失败", Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -83,6 +89,7 @@ public class MyLocation extends Fragment {
         map=mapView.getMap();
         map.setTrafficEnabled(true);
         map.showMapPoi(true);
+        map.setIndoorEnable(true);
         client=new LocationClient(getActivity().getApplicationContext());
         initLocation();
         client.registerLocationListener(listener);

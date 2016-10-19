@@ -1,10 +1,14 @@
-package com.yf.ilocation.activity;
+package com.yf.ilocation;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+
 import com.yf.ilocation.R;
 import com.yf.ilocation.fragment.More;
 import com.yf.ilocation.fragment.MyLocation;
@@ -16,6 +20,8 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
     private  More more;
     private RadioGroup group;
     private FragmentManager fm;
+    private ImageView iv_finish;
+    private TextView lable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +33,11 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
     private void initView() {
         group= (RadioGroup) findViewById(R.id.main_group);
         group.setOnCheckedChangeListener(this);
+        iv_finish= (ImageView) findViewById(R.id.iv_finish);
+        iv_finish.setVisibility(View.GONE);
         fm=getSupportFragmentManager();
+        lable= (TextView) findViewById(R.id.lable);
+        lable.setVisibility(View.VISIBLE);
         if(group.getChildCount()>0){
             RadioButton rb= (RadioButton) group.getChildAt(0);
             rb.setChecked(true);
